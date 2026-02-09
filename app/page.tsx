@@ -197,9 +197,16 @@ export default function Home() {
       return;
     }
 
-    const { width, height } = containerSize;
+    let { width, height } = containerSize;
     if (!width || !height) {
-      return;
+      const rect = containerRef.current?.getBoundingClientRect();
+      if (rect?.width && rect?.height) {
+        width = rect.width;
+        height = rect.height;
+        setContainerSize({ width, height });
+      } else {
+        return;
+      }
     }
 
     const dpr = window.devicePixelRatio || 1;
