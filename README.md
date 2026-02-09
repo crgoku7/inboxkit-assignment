@@ -1,9 +1,18 @@
 
-# next-convex-clerk-template
+# Shared Grid
 
-This template integrates Next.js, Convex, and Clerk for authentication. Follow the steps below to get started.
+A real-time, multi-user shared grid where blocks can be claimed and synced live across all connected clients. Ownership is enforced server-side via Convex mutations and streamed to every client through live queries.
 
-## Setup
+## Tech stack
+
+- Next.js (App Router)
+- React
+- Convex (real-time backend)
+- Clerk (authentication)
+- TypeScript
+- Tailwind CSS (base layer + custom CSS)
+
+## Quick start
 
 1. Install dependencies
 
@@ -11,38 +20,33 @@ This template integrates Next.js, Convex, and Clerk for authentication. Follow t
 npm install
 ```
 
-2. Create a JWT Template
+2. Configure environment variables
 
-- In the Clerk Dashboard, navigate to the **JWT templates** page.
-- Select **New template** and then choose **Convex** from the list of templates. You'll be redirected to the template's settings page.
-- Do NOT rename the JWT token — it must be called `convex`.
-- Copy and save the **Issuer URL** somewhere secure. This is the issuer domain for Clerk's JWT templates (your Clerk app's Frontend API URL). In development it will look like `https://verb-noun-00.clerk.accounts.dev`; in production it will look like `https://clerk.<your-domain>.com`.
-
-3. Run Convex in development
-
-```bash
-npm convex dev
-```
-
-4. Add environment variables
-
-Create a `.env` or `.env.local` file in the project root and add the following:
+Create a `.env.local` file in the project root:
 
 ```
+NEXT_PUBLIC_CONVEX_URL=YOUR_CONVEX_DEPLOYMENT_URL
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_KEY
 CLERK_SECRET_KEY=YOUR_SECRET_KEY
 CLERK_JWT_ISSUER_DOMAIN=YOUR_ISSUER_DOMAIN
 ```
 
-5. Protect routes with `middleware.ts`
+3. Start Convex in development
 
-- Add the routes you want to protect in `middleware.ts`. Configure the middleware to check authentication for those routes and redirect or return 401/403 where appropriate.
+```bash
+npx convex dev
+```
 
-6. Auth UI
+4. Start the Next.js dev server
 
-- The authentication UI (sign-in, sign-up, profile, etc.) can be created as per your application's requirements using Clerk's React components or custom UI with Clerk's SDK.
+```bash
+npm run dev
+```
 
----
+Open http://localhost:3000
 
-If you need help wiring up `middleware.ts` or example pages/components for Clerk, tell me which routes or pages you want protected and I can add example code.
+## Notes
+
+- In Clerk, create a JWT template named `convex` and set `CLERK_JWT_ISSUER_DOMAIN` to the template's issuer URL.
+- Convex codegen runs automatically when you start `npx convex dev`.
 
