@@ -41,7 +41,8 @@ export const claimBlock = mutation({
     const ownerId = identity.subject;
     const ownerName =
       identity.name ?? identity.nickname ?? identity.givenName ?? "Anonymous";
-    const ownerAvatar = identity.picture ?? undefined;
+    const ownerAvatar =
+      typeof identity.picture === "string" ? identity.picture : undefined;
 
     if (existing) {
       if (existing.ownerId) {

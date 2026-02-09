@@ -15,7 +15,7 @@
   --grid-size: clamp(14px, 2.4vw, 22px);
 }
 
-@theme inline {
+:root {
   --color-background: var(--bg);
   --color-foreground: var(--ink);
   --font-sans: var(--font-geist-sans);
